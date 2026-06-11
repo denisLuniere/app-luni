@@ -10,10 +10,14 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="assets/symbol.png" rel="icon"/>
 <link href="styles.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="theme-v1">
+<div aria-hidden="true" class="neon-layer neon-bg"></div>
+<div aria-hidden="true" class="neon-layer neon-grid"></div>
+<div aria-hidden="true" class="neon-layer neon-particles" id="neonParticles"></div>
 <div class="bg__grid"></div>
 <div class="bg__glow bg__glow--1"></div>
 <div class="bg__glow bg__glow--2"></div>
@@ -38,6 +42,12 @@
 <a data-i18n="nav_stack" href="#stack">Stack</a>
 <a data-i18n="nav_faq" href="#faq">FAQ</a>
 <a class="btn btn--sm btn--ghost" data-i18n="nav_budget" href="#contato">Orçamento</a>
+<div aria-label="VariaÃ§Ãµes visuais" class="visualSwitcher" role="group">
+<button aria-pressed="true" class="visualSwitcher__btn" data-i18n="theme_dark" data-theme="1" type="button">Dark</button>
+<button aria-pressed="false" class="visualSwitcher__btn" data-i18n="theme_glass" data-theme="2" type="button">Glass</button>
+<button aria-pressed="false" class="visualSwitcher__btn" data-i18n="theme_sunrise" data-theme="3" type="button">Sunrise</button>
+<button aria-pressed="false" class="visualSwitcher__btn" data-i18n="theme_neon" data-theme="4" type="button">Neon</button>
+</div>
 <div class="langDropdown" data-lang-dropdown=""><button aria-expanded="false" aria-haspopup="menu" aria-label="Idioma" class="langToggle" data-lang-toggle="" type="button">
 <svg aria-hidden="true" class="langToggle__icon" fill="none" height="18" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" stroke="currentColor" stroke-width="1.6"></path>

@@ -14,6 +14,10 @@ const I18N = {
     "nav_faq": "FAQ",
     "nav_budget": "Orçamento",
     "nav_contact": "Contato",
+    "theme_dark": "Dark",
+    "theme_glass": "Glass",
+    "theme_sunrise": "Sunrise",
+    "theme_neon": "Neon",
     "hero_title": "Sistemas, APIs e experiências digitais<br/>com <span class=\"gradient-text\">padrão de produto</span>.",
     "hero_lead": "Desenvolvimento sob medida, landing pages de alta conversão e consultoria técnica para tirar seu projeto do papel com velocidade, qualidade e segurança.",
     "hero_cta_budget": "Solicitar orçamento",
@@ -136,6 +140,10 @@ const I18N = {
     "nav_faq": "FAQ",
     "nav_budget": "Get a quote",
     "nav_contact": "Contact",
+    "theme_dark": "Dark",
+    "theme_glass": "Glass",
+    "theme_sunrise": "Sunrise",
+    "theme_neon": "Neon",
     "hero_title": "Systems, APIs and digital experiences<br/>with <span class=\"gradient-text\">product standards</span>.",
     "hero_lead": "Custom development, high-conversion landing pages and technical consulting to take your project from idea to launch with speed, quality and security.",
     "hero_cta_budget": "Request a quote",
@@ -281,6 +289,9 @@ function applyI18n(lang){
 
   // Active flag
   qsa('.langBtn').forEach(b => b.classList.toggle('is-active', b.getAttribute('data-lang') === CURRENT_LANG));
+  qsa('[data-lang-current]').forEach(el => {
+    el.textContent = CURRENT_LANG === 'pt-BR' ? 'PT' : 'EN';
+  });
 
   // data-i18n: textContent
   qsa('[data-i18n]').forEach(el => {
@@ -375,6 +386,7 @@ function initI18n(){
 
 document.addEventListener('DOMContentLoaded', () => {
   initI18n();
+  initThemeSwitcher();
   initHeroCarousel();
   setYear();
   initReveal();
@@ -387,6 +399,50 @@ document.addEventListener('DOMContentLoaded', () => {
 function setYear(){
   const el = qs('#year');
   if (el) el.textContent = new Date().getFullYear();
+}
+
+let neonInitialized = false;
+
+function ensureNeon(){
+  const container = qs('#neonParticles');
+  if (!container || neonInitialized) return;
+
+  const colors = ['#00ffff', '#ff00ff', '#ffff00'];
+  for (let i = 0; i < 36; i += 1) {
+    const particle = document.createElement('span');
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    particle.className = 'neon-particle';
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.animationDelay = `${Math.random() * 20}s`;
+    particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+    particle.style.background = color;
+    particle.style.boxShadow = `0 0 12px ${color}`;
+    container.appendChild(particle);
+  }
+
+  neonInitialized = true;
+}
+
+function setTheme(theme){
+  const next = ['1', '2', '3', '4'].includes(String(theme)) ? String(theme) : '1';
+  document.body.classList.remove('theme-v1', 'theme-v2', 'theme-v3', 'theme-v4');
+  document.body.classList.add(`theme-v${next}`);
+  localStorage.setItem('lunitec_theme', next);
+
+  qsa('[data-theme]').forEach(btn => {
+    btn.setAttribute('aria-pressed', String(btn.getAttribute('data-theme') === next));
+  });
+
+  if (next === '4') ensureNeon();
+}
+
+function initThemeSwitcher(){
+  const saved = localStorage.getItem('lunitec_theme') || '1';
+  setTheme(saved);
+
+  qsa('[data-theme]').forEach(btn => {
+    btn.addEventListener('click', () => setTheme(btn.getAttribute('data-theme')));
+  });
 }
 
 function initReveal(){
@@ -701,4 +757,3 @@ function initHeroCarousel(){
   go(0);
   start();
 }
-
